@@ -21,6 +21,16 @@ Stack<String> stack;
 String word = "";
 char[] amountOfLetters;
 JLabel[] labels;
+public boolean checkWord(JLabel[] label) {
+	for (int i = 0; i < label.length; i++) {
+		if (label[i].getText().equals("     ___     ")) {
+			System.out.println("Test");
+			return false;
+		}
+	}
+	System.out.println("Testtt");
+	return true;
+}
 public static void main(String[] args) {
 	
 	new HangMan().buildFrame();
@@ -60,6 +70,8 @@ public static void main(String[] args) {
 		
 	
 }
+	
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -72,10 +84,24 @@ public static void main(String[] args) {
 			System.out.println("Correct letter");
 			
 		}
-		else {
-			lives -= 1;
 		}
+		if (checkWord(labels)) {
+			panel.removeAll();
+			String newWord = "";
+			newWord = stack.pop();
+			amountOfLetters = newWord.toCharArray();
+			//JLabel[] labelss = new JLabel[lll.length];
+			 for (int i1 = 0; i1 < amountOfLetters.length; i1++) {
+				 JLabel label = new JLabel();
+					
+					label.setText("     ___     ");
+					panel.add(label);
+					labels[i1] = label;
+					
+					
+				}
 		}
+		
 		if (lives == 0) {
 			System.out.println("You lost");
 			int choice = JOptionPane.showConfirmDialog(null, "Start Over");
