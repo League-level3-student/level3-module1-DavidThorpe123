@@ -21,6 +21,7 @@ Stack<String> stack;
 String word = "";
 char[] amountOfLetters;
 JLabel[] labels;
+
 public boolean checkWord(JLabel[] label) {
 	for (int i = 0; i < label.length; i++) {
 		if (label[i].getText().equals("     ___     ")) {
@@ -75,17 +76,42 @@ public static void main(String[] args) {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		if (lives <= 0) {
+			System.out.println("You lost");
+			if (JOptionPane.showConfirmDialog(null, "You lose.", "Want to play again?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) { 
+				frame.dispose();
+				buildFrame();
+			lives = 3;	
+			}
+		}
 		char letter = e.getKeyChar();
 		System.out.println(letter);
+		boolean foundLetter = false;
 		for (int i = 0; i < amountOfLetters.length; i++) {
+			
 		if (letter == amountOfLetters[i]) {
 			int temp = i;
 			labels[i].setText("    " + String.valueOf(letter) + "    ");
 			System.out.println("Correct letter");
-			
+			foundLetter = true;
 		}
+	
+		}
+		if (!foundLetter) {
+			lives--;
+			System.out.println("You lost a life");
 		}
 		if (checkWord(labels)) {
+			if (stack.isEmpty()) {
+				if (JOptionPane.showConfirmDialog(null, "You win.", "Want to play again?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					frame.dispose();
+					buildFrame();
+					lives = 3;
+					
+				}
+				
+			}
+			else {
 			panel.removeAll();
 			String newWord = "";
 			newWord = stack.pop();
@@ -100,6 +126,7 @@ public static void main(String[] args) {
 					
 					
 				}
+			}
 		}
 		
 		if (lives == 0) {
