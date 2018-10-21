@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 public class HangMan implements KeyListener{
 JFrame frame;
-int lives = 3;
+int lives = 10;
 	 JPanel panel;
 Stack<String> stack;
 String word = "";
@@ -51,6 +51,7 @@ public static void main(String[] args) {
 			
 		}
 		 word = stack.pop();
+		 System.out.println(word);
 		  amountOfLetters = word.toCharArray();
 		  labels = new JLabel[amountOfLetters.length];
 		 frame.add(panel);
@@ -81,7 +82,7 @@ public static void main(String[] args) {
 			if (JOptionPane.showConfirmDialog(null, "You lose.", "Want to play again?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) { 
 				frame.dispose();
 				buildFrame();
-			lives = 3;	
+			lives = 10;	
 			}
 		}
 		char letter = e.getKeyChar();
@@ -115,7 +116,9 @@ public static void main(String[] args) {
 			panel.removeAll();
 			String newWord = "";
 			newWord = stack.pop();
+			System.out.println(newWord);
 			amountOfLetters = newWord.toCharArray();
+			labels = new JLabel[amountOfLetters.length];
 			//JLabel[] labelss = new JLabel[lll.length];
 			 for (int i1 = 0; i1 < amountOfLetters.length; i1++) {
 				 JLabel label = new JLabel();
